@@ -42,7 +42,7 @@ module "ec2_instance" {
     {
       volume_type = "gp2"
       volume_size = 10
-      kms_key_id  = module.kms.kms_key_id
+
     },
   ]
 
@@ -51,7 +51,8 @@ module "ec2_instance" {
       device_name = "/dev/sdf"
       volume_type = "gp2"
       volume_size = 5
-    
+      kms_key_id  = module.kms.key_id
+
 
     }
   ]
@@ -70,14 +71,14 @@ module "iam" {
 module "sg" {
   source = "../../modules/sg/"
 
-  name                = var.name
-  vpc_id              = var.vpc_id
+  name   = var.name
+  vpc_id = var.vpc_id
   # ingress_cidr_blocks = ["10.0.0.0/16"]
   # ingress_rules       = ["https-443-tcp"]
 
   tags = {
-    Value = "dept"
-    Name  = "accounting"
+    Value = "sg_example"
+
   }
 
 }
